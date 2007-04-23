@@ -1,6 +1,6 @@
 %define module	forks
 %define name	perl-%{module}
-%define version	0.19
+%define version	0.23
 %define	release	%mkrel 1
 
 Name:		%{name}
@@ -24,7 +24,7 @@ a threaded perl, or to even run 5.8.0 or higher.
 
 %build
 find -type f | xargs chmod 644
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+yes no | %{__perl} Makefile.PL INSTALLDIRS=vendor
 %{__make}
 
 %check
