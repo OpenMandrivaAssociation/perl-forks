@@ -1,7 +1,7 @@
 %define module	forks
 %define name	perl-%{module}
-%define version	0.23
-%define	release	%mkrel 6
+%define version	0.33
+%define	release	%mkrel 1
 
 Name:		%{name}
 Version:	%{version}
@@ -9,7 +9,7 @@ Release:	%{release}
 Summary:	Drop-in replacement for Perl threads using fork()
 License:	GPL or Artistic
 Group:		Development/Perl
-Source0:	%{module}-%{version}.tar.bz2
+Source0:	%{module}-%{version}.tar.gz
 Url:		http://search.cpan.org/dist/%{module}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	perl-devel, perl-reaper
