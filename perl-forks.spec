@@ -1,18 +1,21 @@
-%define module	forks
-%define name	perl-%{module}
-%define version	0.33
-%define	release	%mkrel 1
+%define upstream_name	 forks
+%define upstream_version 0.33
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 1
+
 Summary:	Drop-in replacement for Perl threads using fork()
-License:	GPL or Artistic
+License:	GPL+ or Artistic
 Group:		Development/Perl
-Source0:	%{module}-%{version}.tar.gz
-Url:		http://search.cpan.org/dist/%{module}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	perl-devel, perl-reaper
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module//%{upstream_name}-%{upstream_version}.tar.gz
+
+BuildRequires: perl-devel
+BuildRequires: perl(Reaper)
+
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
+
 Provides:	perl(forks)
 
 %description
@@ -20,12 +23,12 @@ The "forks" pragma allows a developer to use threads without having to have
 a threaded perl, or to even run 5.8.0 or higher.
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 find -type f | xargs chmod 644
 yes no | %{__perl} Makefile.PL INSTALLDIRS=vendor
-%{__make}
+%make
 
 %check
 #%{__make} test
@@ -40,9 +43,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc CHANGELOG README TODO VERSION
-%{perl_vendorarch}/%{module}.pm
-%{perl_vendorarch}/auto/%{module}/*
-%{perl_vendorarch}/%{module}/*
+%{perl_vendorarch}/%{upstream_name}.pm
+%{perl_vendorarch}/auto/%{upstream_name}/*
+%{perl_vendorarch}/%{upstream_name}/*
 %{perl_vendorarch}/threads/shared/*
 %{_mandir}/*/*
-
